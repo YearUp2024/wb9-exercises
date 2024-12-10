@@ -25,7 +25,7 @@ public class CategoriesController {
         return categoryDao.getAll();
     }
 
-    @RequestMapping(path="/categories/{id}", method= RequestMethod.GET)
+    @RequestMapping(path = "/categories/{id}", method = RequestMethod.GET)
     public Category getCategory(@PathVariable int id){
         return categoryDao.findByCategoryId(id);
     }
