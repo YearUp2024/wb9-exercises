@@ -29,7 +29,12 @@ public class CategoriesController {
 
     @PostMapping("/add")
     public Boolean addCategory(@RequestBody Category category){
-        System.out.println("Received Product: " + category);
         return categoryDao.insert(category);
+    }
+
+    @PutMapping("/update/{id}")
+    public Boolean updateCategory(@PathVariable int id, @RequestBody Category category){
+        System.out.println(id + " " + "Update Category: " + category);
+        return categoryDao.updateCategory(id, category);
     }
 }
