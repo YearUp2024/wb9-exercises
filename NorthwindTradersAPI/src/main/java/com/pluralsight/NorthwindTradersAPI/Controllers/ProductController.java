@@ -3,7 +3,6 @@ package com.pluralsight.NorthwindTradersAPI.Controllers;
 import com.pluralsight.NorthwindTradersAPI.Models.Product;
 import com.pluralsight.NorthwindTradersAPI.dao.interfaces.ProductDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,7 +29,6 @@ public class ProductController {
 
     @PostMapping("/add")
     public Boolean addProduct(@RequestBody Product product) {
-        System.out.println("Received Product: " + product);
         return productDao.insert(product);
     }
 }
