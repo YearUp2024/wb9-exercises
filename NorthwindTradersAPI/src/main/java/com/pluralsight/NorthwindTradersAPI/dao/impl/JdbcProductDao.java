@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,5 +67,25 @@ public class JdbcProductDao implements ProductDao {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public boolean insert(Product product) {
+        String sql = "INSERT INTO products (ProductID, ProductName, CategoryID, UnitPrice) VALUES (?, ?, ?, ?)";
+
+        try(
+                Connection connection = dataSource.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        ){
+            preparedStatement.setInt(1, product.getProductId());
+            preparedStatement.setString(2, product.getProductName());
+            preparedStatement.setInt(3, product.getCategoryId());
+            preparedStatement.setDouble(4, product.getUnitPrice());
+
+            return preparedStatement.executeUpdate() > 0;
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return false;
     }
 }
