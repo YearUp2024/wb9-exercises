@@ -17,7 +17,7 @@ public class ProductController {
         this.productDao = productDao;
     }
 
-    @GetMapping("/all")
+    @GetMapping("/")
     private List<Product> getProducts(){
         return productDao.getAll();
     }
@@ -27,8 +27,14 @@ public class ProductController {
         return productDao.getByProductId(id);
     }
 
-    @PostMapping("/add")
+    @PostMapping("/")
     public Boolean addProduct(@RequestBody Product product) {
         return productDao.insert(product);
+    }
+
+    @PutMapping("/{id}")
+    public Boolean updateProduct(@PathVariable int id, @RequestBody Product product) {
+        System.out.println("Update " + product);
+        return productDao.updateProduct(id, product);
     }
 }

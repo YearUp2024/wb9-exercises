@@ -88,4 +88,23 @@ public class JdbcProductDao implements ProductDao {
         }
         return false;
     }
+
+    @Override
+    public boolean updateProduct(int id, Product product) {
+        try(
+                Connection connection = dataSource.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(
+                        "UPDATE northwind.Products SET ProductName = ?, CategoryID = ? , UnitPrice = ? WHERE ProductID = ?;");
+        ){
+            preparedStatement.setString(1, product.getProductName());
+            preparedStatement.setInt(2, product.getCategoryId());
+            preparedStatement.setDouble(3, product.getUnitPrice());
+            preparedStatement.setInt(4, id);
+
+            return preparedStatement.executeUpdate() > 0;
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
