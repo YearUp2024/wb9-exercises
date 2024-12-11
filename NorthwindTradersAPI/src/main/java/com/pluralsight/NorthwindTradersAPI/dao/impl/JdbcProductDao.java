@@ -47,6 +47,28 @@ public class JdbcProductDao implements ProductDao {
 
     @Override
     public Product getByProductId(int id) {
+        Product product;
+        String sql = "SELECT ProductID, ProductName, CategoryId, UnitPrice FROM northwind.Products WHERE ProductID = ?";
+
+        try(
+                Connection connection = dataSource.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        ){
+            preparedStatement.setInt(1, id);
+
+            try(ResultSet resultSet = preparedStatement.executeQuery()){
+                while(resultSet.next()){
+                    int productId = resultSet.getInt(1);
+                    String productName = resultSet.getString(2);
+                    int productCategoryId = resultSet.getInt(3);
+                    double unitPrice = resultSet.getDouble(4);
+
+                    return new Product(productId, productName, productCategoryId, unitPrice);
+                }
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
         return null;
     }
 }

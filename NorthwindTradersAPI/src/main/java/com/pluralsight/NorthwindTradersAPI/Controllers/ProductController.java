@@ -26,11 +26,6 @@ public class ProductController {
 
     @RequestMapping(path = "/products/{id}", method = RequestMethod.GET)
     public Product getProduct(@PathVariable int id){
-        if(id == 1){
-            return new Product(1, "Banana", 1, 5.99d);
-        }else if(id == 2){
-            return new Product(2, "Apple", 1, 15.99d);
-        }
-        return null;
+        return productDao.getByProductId(id);
     }
 }
