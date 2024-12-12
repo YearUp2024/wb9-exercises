@@ -34,7 +34,12 @@ public class ProductController {
 
     @PutMapping("/{id}")
     public Boolean updateProduct(@PathVariable int id, @RequestBody Product product) {
-        System.out.println("Update " + product);
         return productDao.updateProduct(id, product);
+    }
+
+    @DeleteMapping("/{id}")
+    public Boolean deleteProduct(@PathVariable int id){
+        System.out.println("Update " + id);
+        return productDao.deleteProduct(id);
     }
 }
