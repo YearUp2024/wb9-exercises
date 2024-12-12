@@ -9,4 +9,5 @@ public interface CategoryDao {
     Category findByCategoryId(int id);
     boolean insert(Category category);
     boolean updateCategory(int id, Category category);
+    boolean deleteCategory(int id);
 }

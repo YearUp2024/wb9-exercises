@@ -17,7 +17,7 @@ public class CategoriesController {
         this.categoryDao = categoryDao;
     }
 
-    @GetMapping("/all")
+    @GetMapping("/")
     public List<Category> getCategories(){
         return categoryDao.getAll();
     }
@@ -27,14 +27,19 @@ public class CategoriesController {
         return categoryDao.findByCategoryId(id);
     }
 
-    @PostMapping("/add")
+    @PostMapping("/")
     public Boolean addCategory(@RequestBody Category category){
         return categoryDao.insert(category);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public Boolean updateCategory(@PathVariable int id, @RequestBody Category category){
-        System.out.println(id + " " + "Update Category: " + category);
         return categoryDao.updateCategory(id, category);
+    }
+
+    @DeleteMapping("/{id}")
+    public Boolean deleteCategory(@PathVariable int id){
+        System.out.println( "Update Category: " + id);
+        return categoryDao.deleteCategory(id);
     }
 }
